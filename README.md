@@ -40,7 +40,7 @@ yarn
 ```
 
 3. You need to provide GitHub app's Client ID and Client Secret. You can follow this tutorial, [Connect your app to GitHub
-](https://auth0.com/docs/connections/social/github).
+](https://auth0.com/docs/connections/social/github)
 
 4. Next, copy-paste the Client ID and Client Secret into `.env` file.
 
