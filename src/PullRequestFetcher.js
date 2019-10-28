@@ -3,16 +3,21 @@ import contributor from './Contributor.json'
 
 const PullRequestFetcher = () => {
   const [hasError, setErrors] = useState(false);
-  const [planets, setPlanets] = useState({});
+  const [pullRequests, setData] = useState({});
 
   async function fetchData() {
-    const authors = contributor.map(author => `author:${author}`).join('+')
+    // store urls to fetch in an array
+    const urls = contributor.map(author => `https://api.github.com/search/issues?q=author:${author}+is:pr+created:>${process.env.REACT_APP_BASE_DATE}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
 
-    const res = await fetch(`https://api.github.com/search/issues?q=${authors}+is:pr+created:>2019-10-26&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`);
-    res
-      .json()
-      .then(res => setPlanets(res))
-      .catch(err => setErrors(err));
+    // use map() to perform a fetch and handle the response for each url
+    Promise.all(urls.map(url =>
+      fetch(url)
+        .then(res => res.json())
+        .catch(err => setErrors(err))
+    ))
+      .then(data => {
+        setData(data)
+      })
   }
 
   useEffect(() => {
@@ -21,7 +26,7 @@ const PullRequestFetcher = () => {
 
   return (
     <div>
-      <span>{JSON.stringify(planets)}</span>
+      <span>{JSON.stringify(pullRequests)}</span>
       <hr />
       {hasError && <span>Has error: {JSON.stringify(hasError)}</span>}
     </div>
