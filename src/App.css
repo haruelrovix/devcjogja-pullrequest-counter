@@ -37,3 +37,8 @@ td, th {
 .td-link {
   text-align: left;
 }
+
+.disclaimer {
+  margin-top: 10px;
+  font-size: smaller;
+}

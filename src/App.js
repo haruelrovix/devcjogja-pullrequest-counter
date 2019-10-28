@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import DateRange from './DateRange'
-import PullRequestFetcher from './PullRequestFetcher'
+import DateRange from './DateRange';
+import Disclaimer from './Disclaimer';
+import PullRequestFetcher from './PullRequestFetcher';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <PullRequestFetcher />
         <DateRange />
+        <Disclaimer />
       </header>
     </div>
   );
