@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import contributor from './Contributor.json'
+import PullRequestTable from './PullRequestTable'
 
 const PullRequestFetcher = () => {
   const [hasError, setErrors] = useState(false);
@@ -16,7 +17,7 @@ const PullRequestFetcher = () => {
         .catch(err => setErrors(err))
     ))
       .then(data => {
-        setData(data)
+        setData(data.sort((a, b) => b.total_count - a.total_count))
       })
   }
 
@@ -26,7 +27,7 @@ const PullRequestFetcher = () => {
 
   return (
     <div>
-      <span>{JSON.stringify(pullRequests)}</span>
+      {pullRequests && <span><PullRequestTable data={pullRequests} /></span>}
       <hr />
       {hasError && <span>Has error: {JSON.stringify(hasError)}</span>}
     </div>
