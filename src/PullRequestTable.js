@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from './Loader'
 
 const Link = ({ url }) => {
   return (
@@ -33,20 +34,20 @@ const getHeader = function (header) {
   })
 }
 
-const getRowsData = function ({ data }) {
-  if (!data || !data.length || data.length <= 0) return null;
-
+const getRowsData = function (data) {
   return data.map((row, index) => {
     return <tr key={index}><RenderRow key={index} data={row} /></tr>
   })
 }
 
-function PullRequestTable(data) {
+function PullRequestTable({ data }) {
+  if (!data || !data.length || data.length <= 0) return <Loader />;
+
   return (
     <React.Fragment>
       <table>
         <thead>
-          <tr>{getHeader(['username', 'PR count', 'link'])}</tr>
+          <tr>{getHeader(['username', 'PR', 'link'])}</tr>
         </thead>
         <tbody>
           {getRowsData(data)}

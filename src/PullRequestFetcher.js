@@ -8,7 +8,7 @@ const PullRequestFetcher = () => {
 
   async function fetchData() {
     // store urls to fetch in an array
-    const urls = contributor.map(author => `https://api.github.com/search/issues?q=author:${author}+is:pr+created:>${process.env.REACT_APP_BASE_DATE}+created:<${process.env.REACT_APP_END_DATE}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
+    const urls = contributor.map(author => `https://api.github.com/search/issues?q=author:${author}+is:pr+created:${process.env.REACT_APP_BASE_DATE}..${process.env.REACT_APP_END_DATE}&client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
 
     // use map() to perform a fetch and handle the response for each url
     Promise.all(urls.map(url =>
@@ -26,7 +26,7 @@ const PullRequestFetcher = () => {
   }, []);
 
   return (
-    <div>
+    <div className="table-container">
       {pullRequests && <span><PullRequestTable data={pullRequests} /></span>}
       <hr />
       {hasError && <span>Has error: {JSON.stringify(hasError)}</span>}
